@@ -20,14 +20,14 @@ export function Academia() {
 
   async function gerarReceita() {
     if (ingr1 === "" || ingr2 === "" || ingr3 === "" || ingr4 === "" || ocasiao === "") {
-      Alert.alert("Atenção", "Informe todos os ingredientes!", [{ text: "Beleza!" }])
+      Alert.alert("Atenção", "Informe todos os Segmentos!", [{ text: "Beleza!" }])
       return;
     }
     defReceita("");
     defLoad(true);
     Keyboard.dismiss();
 
-    const prompt = `Sugira uma receita detalhada para o ${ocasiao} usando os ingredientes: ${ingr1}, ${ingr2}, ${ingr3} e ${ingr4} e pesquise a receita no YouTube. Caso encontre, informe o link.`;
+    const prompt = `Sugira um plano de treino detalhada para o ${ocasiao} usando as específicações do: ${ingr1}, ${ingr2}, ${ingr3} e ${ingr4} e pesquise um plano no YouTube. Caso encontre, informe o link.`;
 
     fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -64,35 +64,35 @@ export function Academia() {
   return (
     <View style={ESTILOS.container}>
       <StatusBar barStyle="dark-content" translucent={true} backgroundColor="#F1F1F1" />
-      <Text style={ESTILOS.header}>Cozinha fácil</Text>
+      <Text style={ESTILOS.header}>Treino to DAY</Text>
       <View style={ESTILOS.form}>
-        <Text style={ESTILOS.label}>Insira os ingredientes abaixo:</Text>
+        <Text style={ESTILOS.label}>Insira suas específicações aqui:</Text>
         <TextInput
-          placeholder="Ingrediente 1"
+          placeholder="Peso e Altura"
           style={ESTILOS.input}
           value={ingr1}
           onChangeText={(texto) => defIngr1(texto)}
         />
         <TextInput
-          placeholder="Ingrediente 2"
+          placeholder="Genêro (Masculino e Feminino)"
           style={ESTILOS.input}
           value={ingr2}
           onChangeText={(texto) => defIngr2(texto)}
         />
         <TextInput
-          placeholder="Ingrediente 3"
+          placeholder="Musculos(Ex: Peito, Costas, Pernas...)"
           style={ESTILOS.input}
           value={ingr3}
           onChangeText={(texto) => defIngr3(texto)}
         />
         <TextInput
-          placeholder="Ingrediente 4"
+          placeholder="Duração (Ex: 30min, 60min...)"
           style={ESTILOS.input}
           value={ingr4}
           onChangeText={(texto) => defIngr4(texto)}
         />
         <TextInput
-          placeholder="Almoço ou Jantar"
+          placeholder="Intensidade (Ex: Leve, Moderada, Intensa)"
           style={ESTILOS.input}
           value={ocasiao}
           onChangeText={(texto) => defOcasiao(texto)}
@@ -100,21 +100,21 @@ export function Academia() {
       </View>
 
       <TouchableOpacity style={ESTILOS.button} onPress={gerarReceita}>
-        <Text style={ESTILOS.buttonText}>Gerar receita</Text>
-        <MaterialCommunityIcons name="food-variant" size={24} color="#FFF" />
+        <Text style={ESTILOS.buttonText}>Gerar Treino</Text>
+        <MaterialCommunityIcons name="search-web" size={30} color="#FFF" />
       </TouchableOpacity>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 24, marginTop: 4, }} style={ESTILOS.containerScroll} showsVerticalScrollIndicator={false} >
         {load && (
           <View style={ESTILOS.content}>
-            <Text style={ESTILOS.title}>Produzindo receita...</Text>
+            <Text style={ESTILOS.title}>Produzindo Treino...</Text>
             <ActivityIndicator color="#000" size="large" />
           </View>
         )}
 
         {receita && (
           <View style={ESTILOS.content}>
-            <Text style={ESTILOS.title}>Sua receita 👇</Text>
+            <Text style={ESTILOS.title}>Seu Treino 👇</Text>
             <Text style={{ lineHeight: 24 }}>{receita} </Text>
           </View>
         )}

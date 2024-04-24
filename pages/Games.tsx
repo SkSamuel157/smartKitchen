@@ -6,26 +6,25 @@ import { useState } from 'react'
 const alturaStatusBar = StatusBar.currentHeight
 const KEY_GPT = 'SUA_CHAVE_DE_API';
 
-export function Home() {
+export function Games() {
     const [load, defLoad] = useState(false);
   const [receita, defReceita] = useState("");
 
   const [ingr1, defIngr1] = useState("");
   const [ingr2, defIngr2] = useState("");
   const [ingr3, defIngr3] = useState("");
-  const [ingr4, defIngr4] = useState("");
   const [ocasiao, defOcasiao] = useState("");
 
   async function gerarReceita() {
-    if (ingr1 === "" || ingr2 === "" || ingr3 === "" || ingr4 === "" || ocasiao === "") {
-      Alert.alert("Atenção", "Informe todos os ingredientes!", [{ text: "Beleza!" }])
+    if (ingr1 === "" || ingr2 === "" || ingr3 === "" || ocasiao === "") {
+      Alert.alert("Atenção", "Informe todos os Segmentos!", [{ text: "GG!" }])
       return;
     }
     defReceita("");
     defLoad(true);
     Keyboard.dismiss();
 
-    const prompt = `Sugira uma receita detalhada para o ${ocasiao} usando os ingredientes: ${ingr1}, ${ingr2}, ${ingr3} e ${ingr4} e pesquise a receita no YouTube. Caso encontre, informe o link.`;
+    const prompt = `Sugira um Jogo para o ${ocasiao} usando os ingredientes: ${ingr1}, ${ingr2} e ${ingr3} e pesquise o game na Internet. Caso encontre, informe o link.`;
 
     fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
@@ -62,35 +61,29 @@ export function Home() {
   return (
     <View style={ESTILOS.container}>
       <StatusBar barStyle="dark-content" translucent={true} backgroundColor="#F1F1F1" />
-      <Text style={ESTILOS.header}>Cozinha fácil</Text>
+      <Text style={ESTILOS.header}>Biblioteca de Jogos</Text>
       <View style={ESTILOS.form}>
-        <Text style={ESTILOS.label}>Insira os ingredientes abaixo:</Text>
+        <Text style={ESTILOS.label}>Preencha ai Irmão:</Text>
         <TextInput
-          placeholder="Ingrediente 1"
+          placeholder="Genêro 01"
           style={ESTILOS.input}
           value={ingr1}
           onChangeText={(texto) => defIngr1(texto)}
         />
         <TextInput
-          placeholder="Ingrediente 2"
+          placeholder="Genêro 02"
           style={ESTILOS.input}
           value={ingr2}
           onChangeText={(texto) => defIngr2(texto)}
         />
         <TextInput
-          placeholder="Ingrediente 3"
+          placeholder="Genêro 03"
           style={ESTILOS.input}
           value={ingr3}
           onChangeText={(texto) => defIngr3(texto)}
         />
         <TextInput
-          placeholder="Ingrediente 4"
-          style={ESTILOS.input}
-          value={ingr4}
-          onChangeText={(texto) => defIngr4(texto)}
-        />
-        <TextInput
-          placeholder="Almoço ou Jantar"
+          placeholder="BlockBuste, Indie ou Undergroud"
           style={ESTILOS.input}
           value={ocasiao}
           onChangeText={(texto) => defOcasiao(texto)}
@@ -98,21 +91,21 @@ export function Home() {
       </View>
 
       <TouchableOpacity style={ESTILOS.button} onPress={gerarReceita}>
-        <Text style={ESTILOS.buttonText}>Gerar receita</Text>
+        <Text style={ESTILOS.buttonText}>Vem na Minha</Text>
         <MaterialCommunityIcons name="food-variant" size={24} color="#FFF" />
       </TouchableOpacity>
 
       <ScrollView contentContainerStyle={{ paddingBottom: 24, marginTop: 4, }} style={ESTILOS.containerScroll} showsVerticalScrollIndicator={false} >
         {load && (
           <View style={ESTILOS.content}>
-            <Text style={ESTILOS.title}>Produzindo receita...</Text>
+            <Text style={ESTILOS.title}>Procurando...</Text>
             <ActivityIndicator color="#000" size="large" />
           </View>
         )}
 
         {receita && (
           <View style={ESTILOS.content}>
-            <Text style={ESTILOS.title}>Sua receita 👇</Text>
+            <Text style={ESTILOS.title}>Seu Game 👇</Text>
             <Text style={{ lineHeight: 24 }}>{receita} </Text>
           </View>
         )}
@@ -155,7 +148,7 @@ const ESTILOS = StyleSheet.create({
     marginBottom: 16,
   },
   button: {
-    backgroundColor: 'red',
+    backgroundColor: 'blue',
     width: '90%',
     borderRadius: 8,
     flexDirection: 'row',
